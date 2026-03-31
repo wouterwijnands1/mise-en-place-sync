@@ -647,6 +647,8 @@
       display: grid;
       gap: 18px;
       background: linear-gradient(180deg, rgba(184,150,104,0.06), transparent 18%);
+      grid-column: 1 / -1;
+      width: 100%;
     }
 
     .production-section {
@@ -777,6 +779,8 @@
   display: grid;
   gap: 18px;
   background: linear-gradient(180deg, rgba(184,150,104,0.06), transparent 18%);
+  grid-column: 1 / -1;
+  width: 100%;
 }
 
 .bestel-section {
@@ -953,6 +957,8 @@
   display: grid;
   gap: 16px;
   background: linear-gradient(180deg, rgba(184,150,104,0.06), transparent 18%);
+  grid-column: 1 / -1;
+  width: 100%;
 }
 
 .todo-wrap {
@@ -1098,6 +1104,64 @@
     .todo-textarea.strike-mode {
       text-decoration: line-through;
       text-decoration-thickness: 3px;
+    }
+
+
+
+    @media (min-width: 701px) and (max-width: 1024px) and (orientation: portrait) {
+      body { padding: 8px; }
+      .shell {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .app,
+      .sidebar,
+      .production-board,
+      .bestel-board,
+      .todo-board,
+      .production-section,
+      .bestel-section,
+      .todo-wrap,
+      .bestel-names-editor,
+      .production-table-wrap {
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+      }
+      .production-board,
+      .bestel-board,
+      .todo-board {
+        padding: 12px;
+      }
+      .production-table,
+      .bestel-table {
+        width: 100%;
+        min-width: 100%;
+        table-layout: fixed;
+      }
+      .production-table th.prod-item-head,
+      .production-table .prod-item-label {
+        width: 28%;
+      }
+      .prod-min,
+      .prod-max {
+        width: 7%;
+      }
+      .prod-day-cell {
+        width: 8.29%;
+        min-width: 0;
+      }
+      .bestel-table th.bestel-item-head,
+      .bestel-table .bestel-item-label {
+        width: 40%;
+      }
+      .bestel-day-cell {
+        width: 12%;
+        min-width: 0;
+      }
+      .todo-textarea {
+        min-height: 62vh;
+      }
     }
 
 @media (max-width: 1180px) {
