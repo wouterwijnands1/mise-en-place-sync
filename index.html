@@ -284,7 +284,8 @@
 
     .section-title[contenteditable="true"],
     .section-subtitle[contenteditable="true"],
-    .item-label[contenteditable="true"] {
+    .item-label[contenteditable="true"],
+    .row-mm[contenteditable="true"] {
       box-shadow: inset 0 0 0 2px rgba(184,150,104,0.35);
       background-image: linear-gradient(to right, rgba(184,150,104,0.12), rgba(184,150,104,0.04));
     }
@@ -3425,11 +3426,27 @@ function renderTodoLijst() {
           const minCell = document.createElement('div');
           minCell.className = 'row-mm';
           minCell.textContent = rowMin;
+          minCell.dataset.list = activeListId;
+          minCell.dataset.col = colIndex;
+          minCell.dataset.section = sectionIndex;
+          minCell.dataset.row = rowIndex;
+          minCell.dataset.field = 'min';
+          minCell.contentEditable = isEditing ? 'true' : 'false';
+          minCell.spellcheck = false;
+          minCell.addEventListener('input', onGenericRowFieldEdit);
           row.appendChild(minCell);
 
           const maxCell = document.createElement('div');
           maxCell.className = 'row-mm';
           maxCell.textContent = rowMax;
+          maxCell.dataset.list = activeListId;
+          maxCell.dataset.col = colIndex;
+          maxCell.dataset.section = sectionIndex;
+          maxCell.dataset.row = rowIndex;
+          maxCell.dataset.field = 'max';
+          maxCell.contentEditable = isEditing ? 'true' : 'false';
+          maxCell.spellcheck = false;
+          maxCell.addEventListener('input', onGenericRowFieldEdit);
           row.appendChild(maxCell);
         }
 
@@ -3440,6 +3457,7 @@ function renderTodoLijst() {
         label.dataset.col = colIndex;
         label.dataset.section = sectionIndex;
         label.dataset.row = rowIndex;
+        label.dataset.field = 'label';
         label.contentEditable = isEditing ? 'true' : 'false';
         label.spellcheck = false;
         label.addEventListener('input', onLabelEdit);
@@ -3770,11 +3788,25 @@ function renderTodoLijst() {
       el._holdTimer = null;
     }
 
-    function onLabelEdit(event) {
+    function onGenericRowFieldEdit(event) {
       const state = getActiveState();
       const el = event.currentTarget;
-      const { col, section, row } = el.dataset;
-      state.columns[Number(col)].sections[Number(section)].rows[Number(row)] = el.textContent.trim() || ' ';
+      const { col, section, row, field } = el.dataset;
+      const rowRef = state.columns[Number(col)].sections[Number(section)].rows[Number(row)];
+      const value = el.textContent.trim();
+
+      if (rowRef && typeof rowRef === 'object') {
+        rowRef[field || 'label'] = value || ' ';
+        return;
+      }
+
+      if ((field || 'label') === 'label') {
+        state.columns[Number(col)].sections[Number(section)].rows[Number(row)] = value || ' ';
+      }
+    }
+
+    function onLabelEdit(event) {
+      onGenericRowFieldEdit(event);
     }
 
     function onTitleEdit(event) {
