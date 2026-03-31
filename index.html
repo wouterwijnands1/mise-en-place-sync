@@ -1909,54 +1909,77 @@ const koudDefaultData = {
         };
       }
     }
-// test
 
-    function createDefaultSharedState() {
-      const sharedLists = {};
-      listConfigs.forEach(config => {
-        sharedLists[config.id] = {
-          columns: config.defaultData.columns ? clone(config.defaultData.columns) : undefined,
-          productionSections: config.defaultData.productionSections ? clone(config.defaultData.productionSections) : undefined,
-          bestelSections: config.defaultData.bestelSections ? clone(config.defaultData.bestelSections) : undefined,
-          todoTitle: config.defaultData.todoTitle ? config.defaultData.todoTitle : undefined,
-          titleText: config.title,
-          hintText: config.hint,
-          instructionsHtml: defaultInstructionsByList[config.id] || ''
-        };
-      });
+function createDefaultSharedState() {
+  const sharedLists = {};
 
-      return {
-        version: 1,
-        headerEyebrow: "Restaurant t' Bomenpark",
-        notesTitle: 'Notities',
-        bestelNames: clone(DEFAULT_BESTEL_NAMEN),
-        lists: sharedLists
-      };
+  listConfigs.forEach(config => {
+    const listState = {
+      titleText: config.title,
+      hintText: config.hint,
+      instructionsHtml: defaultInstructionsByList[config.id] || ''
+    };
+
+    if (config.defaultData.columns) {
+      listState.columns = clone(config.defaultData.columns);
+    }
+    if (config.defaultData.productionSections) {
+      listState.productionSections = clone(config.defaultData.productionSections);
+    }
+    if (config.defaultData.bestelSections) {
+      listState.bestelSections = clone(config.defaultData.bestelSections);
+    }
+    if (config.defaultData.todoTitle) {
+      listState.todoTitle = config.defaultData.todoTitle;
     }
 
-    function extractSharedStateFromAppState() {
-      const sharedLists = {};
-      listConfigs.forEach(config => {
-        const state = appState?.lists?.[config.id] || {};
-        sharedLists[config.id] = {
-          columns: state.columns ? clone(state.columns) : undefined,
-          productionSections: state.productionSections ? clone(state.productionSections) : undefined,
-          bestelSections: state.bestelSections ? clone(state.bestelSections) : undefined,
-          todoTitle: typeof state.todoTitle === 'string' ? state.todoTitle : undefined,
-          titleText: state.titleText || config.title,
-          hintText: state.hintText || config.hint,
-          instructionsHtml: state.instructionsHtml || defaultInstructionsByList[config.id] || ''
-        };
-      });
+    sharedLists[config.id] = listState;
+  });
 
-      return {
-        version: 1,
-        headerEyebrow: appState?.headerEyebrow || "Restaurant t' Bomenpark",
-        notesTitle: appState?.notesTitle || 'Notities',
-        bestelNames: getBestelNamen(),
-        lists: sharedLists
-      };
+  return {
+    version: 1,
+    headerEyebrow: "Restaurant t' Bomenpark",
+    notesTitle: 'Notities',
+    bestelNames: clone(DEFAULT_BESTEL_NAMEN),
+    lists: sharedLists
+  };
+}
+
+function extractSharedStateFromAppState() {
+  const sharedLists = {};
+
+  listConfigs.forEach(config => {
+    const state = appState?.lists?.[config.id] || {};
+    const listState = {
+      titleText: state.titleText || config.title,
+      hintText: state.hintText || config.hint,
+      instructionsHtml: state.instructionsHtml || defaultInstructionsByList[config.id] || ''
+    };
+
+    if (state.columns) {
+      listState.columns = clone(state.columns);
     }
+    if (state.productionSections) {
+      listState.productionSections = clone(state.productionSections);
+    }
+    if (state.bestelSections) {
+      listState.bestelSections = clone(state.bestelSections);
+    }
+    if (typeof state.todoTitle === 'string') {
+      listState.todoTitle = state.todoTitle;
+    }
+
+    sharedLists[config.id] = listState;
+  });
+
+  return {
+    version: 1,
+    headerEyebrow: appState?.headerEyebrow || "Restaurant t' Bomenpark",
+    notesTitle: appState?.notesTitle || 'Notities',
+    bestelNames: getBestelNamen(),
+    lists: sharedLists
+  };
+}
 
     function applySharedStateToAppState(sharedState) {
       if (!sharedState || typeof sharedState !== 'object') return;
