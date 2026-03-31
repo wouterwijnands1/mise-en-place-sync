@@ -1208,13 +1208,13 @@
     const LISTS_STORAGE_KEY = 'bomenpark_multi_lists_v2';
     const FIREBASE_SYNC_ENABLED = true;
     const FIREBASE_CONFIG = {
-      apiKey: 'AIzaSyCFP26WAPOnv2Dnhe4k_qghlgfI-_KCsNw',
-      authDomain: 'mice-en-place.firebaseapp.com',
-      projectId: 'mice-en-place',
-      storageBucket: 'mice-en-place.firebasestorage.app',
-      messagingSenderId: '716824317993',
-      appId: '1:716824317993:web:72276785a4da692280cc38'
-    };
+  apiKey: 'AIzaSyCFP26WAPOnv2Dnhe4k_qghlgfI-_KCsNw',
+  authDomain: 'mice-en-place.firebaseapp.com',
+  projectId: 'mice-en-place',
+  storageBucket: 'mice-en-place.firebasestorage.app',
+  messagingSenderId: '716824317993',
+  appId: '1:716824317993:web:72276785a4da692280cc38'
+};
     const FIRESTORE_SHARED_COLLECTION = 'sharedLists';
     const FIRESTORE_SHARED_DOCUMENT = 'bomenpark-v1';
 
@@ -2009,7 +2009,7 @@ const koudDefaultData = {
       try {
         await sharedDocRef.set({
           ...sharedState,
-          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+   updatedAt: Date.now()
         }, { merge: true });
       } catch (error) {
         console.error('Opslaan van gedeelde lijst mislukt:', error);
