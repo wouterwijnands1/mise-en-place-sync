@@ -808,7 +808,8 @@
   background-image: linear-gradient(to right, rgba(184,150,104,0.12), rgba(184,150,104,0.04));
 }
 
-.bestel-table {
+.bestel-table,
+      .poets-table {
   width: 100%;
   border-collapse: collapse;
   min-width: 0;
@@ -934,6 +935,113 @@
   outline: none;
 }
 
+
+
+    
+
+.poets-board {
+  padding: 20px;
+  display: grid;
+  gap: 18px;
+  background: linear-gradient(180deg, rgba(184,150,104,0.06), transparent 18%);
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.poets-section {
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #fffefc 0%, #fffaf3 100%);
+  box-shadow: 0 10px 24px rgba(17,17,17,0.06);
+}
+
+.poets-title {
+  background: linear-gradient(90deg, #171717 0%, #2b2621 100%);
+  color: #fff;
+  padding: 13px 16px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.poets-title[contenteditable="true"],
+.poets-item-label[contenteditable="true"] {
+  box-shadow: inset 0 0 0 2px rgba(184,150,104,0.35);
+  background-image: linear-gradient(to right, rgba(184,150,104,0.12), rgba(184,150,104,0.04));
+}
+
+.poets-title[contenteditable="true"] {
+  color: #fff !important;
+  background: linear-gradient(90deg, #171717 0%, #2b2621 100%) !important;
+}
+
+.poets-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 0;
+  table-layout: fixed;
+}
+
+.poets-table th,
+.poets-table td {
+  border-top: 1px solid #eee2d1;
+  padding: 10px 8px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.poets-table thead th {
+  background: linear-gradient(180deg, #f6ecdd 0%, #ead9c3 100%);
+  color: #171717;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+}
+
+.poets-table th.poets-item-head {
+  width: 38%;
+}
+
+.poets-item-label {
+  text-align: left;
+  padding: 10px 8px;
+  line-height: 1.15;
+  outline: none;
+  font-size: 0.94rem;
+}
+
+.poets-date-cell,
+.poets-note-cell {
+  background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(247,241,232,0.7));
+}
+
+.poets-date-input,
+.poets-note-input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #d8cfc2;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 9px 10px;
+  outline: none;
+}
+
+.poets-date-input:focus,
+.poets-note-input:focus {
+  border-color: rgba(184,150,104,0.9);
+  box-shadow: 0 0 0 2px rgba(184,150,104,0.18);
+}
+
+.poets-note-input {
+  min-height: 42px;
+}
 
 
     .row.note-row {
@@ -1106,64 +1214,6 @@
       text-decoration-thickness: 3px;
     }
 
-
-
-    @media (min-width: 701px) and (max-width: 1024px) and (orientation: portrait) {
-      body { padding: 8px; }
-      .shell {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-      .app,
-      .sidebar,
-      .production-board,
-      .bestel-board,
-      .todo-board,
-      .production-section,
-      .bestel-section,
-      .todo-wrap,
-      .bestel-names-editor,
-      .production-table-wrap {
-        width: 100%;
-        max-width: none;
-        min-width: 0;
-      }
-      .production-board,
-      .bestel-board,
-      .todo-board {
-        padding: 12px;
-      }
-      .production-table,
-      .bestel-table {
-        width: 100%;
-        min-width: 100%;
-        table-layout: fixed;
-      }
-      .production-table th.prod-item-head,
-      .production-table .prod-item-label {
-        width: 28%;
-      }
-      .prod-min,
-      .prod-max {
-        width: 7%;
-      }
-      .prod-day-cell {
-        width: 8.29%;
-        min-width: 0;
-      }
-      .bestel-table th.bestel-item-head,
-      .bestel-table .bestel-item-label {
-        width: 40%;
-      }
-      .bestel-day-cell {
-        width: 12%;
-        min-width: 0;
-      }
-      .todo-textarea {
-        min-height: 62vh;
-      }
-    }
-
 @media (max-width: 1180px) {
       .shell { grid-template-columns: 1fr; }
       .sidebar { position: static; }
@@ -1194,6 +1244,7 @@
       .prod-item-label { font-size: 0.88rem; }
       .prod-day-cell { font-size: 0.82rem; padding: 6px 2px !important; }
       .prod-min, .prod-max { width: 46px; font-size: 0.82rem; }
+      .poets-item-label { font-size: 0.88rem; }
     }
 
     @media (max-width: 700px) {
@@ -1460,6 +1511,59 @@ const bestelDefaultData = {
 };
 
     
+
+
+const poetsDefaultData = {
+  poetsSections: [
+    {
+      title: 'Maandag',
+      rows: [
+        { label: 'Koelingen boven en beneden' },
+        { label: 'Koelbanken/lades' }
+      ]
+    },
+    {
+      title: 'Dinsdag',
+      rows: [
+        { label: 'Slagroommachine' },
+        { label: 'Bordenschappen' },
+        { label: 'Bij de frituur onder' },
+        { label: 'Insectenplaat wisselen' },
+        { label: 'Schappen bij vaatwasser' },
+        { label: 'Ruimte onder vaatwasser' }
+      ]
+    },
+    {
+      title: 'Woensdag',
+      rows: [
+        { label: 'Dessertkoeling plus vriezer' },
+        { label: 'Kast desserthoek' },
+        { label: 'Kast snijplanken' },
+        { label: 'Kast verpakkingsmaterialen' }
+      ]
+    },
+    {
+      title: 'Donderdag',
+      rows: [
+        { label: 'Productieruimte' },
+        { label: 'Chiller' },
+        { label: 'Steamer' },
+        { label: 'Vacumeermachine' },
+        { label: 'Röner' },
+        { label: 'Warmtekast' }
+      ]
+    },
+    {
+      title: 'Eens per 2 weken',
+      rows: [
+        { label: 'Grote warmtekast (borden)' }
+      ]
+    }
+  ],
+  poetsEntries: {},
+  notes: ''
+};
+
 
 const todoDefaultData = {
   todoTitle: 'Te doen',
@@ -1729,6 +1833,7 @@ const koudDefaultData = {
       { id: 'koud', label: 'Koud M&P', title: 'Koud M&P', hint: 'Rechts: tik op het kruisvak om af te kruisen, tik op het invulvak om direct te typen. Houd de itemnaam ingedrukt om door te strepen. Alles blijft bewaard op dit apparaat.', defaultData: koudDefaultData },
       { id: 'productie', label: 'Productielijst', title: 'Productielijst', hint: '1x tikken = arceren t/m die dag. Ingedrukt houden = X. 2x tikken = invoeren. Alles blijft bewaard op dit apparaat.', defaultData: productieDefaultData },
       { id: 'bestel', label: 'Bestellijst', title: 'Bestellijst', hint: '1x tikken = X. 2x tikken = kies naam. Alles wissen blijft werken per weeklijst.', defaultData: bestelDefaultData },
+      { id: 'poets', label: 'Poetslijst', title: 'Poetslijst', hint: 'Vul per taak de laatste poetsdatum en eventueel een notitie in.', defaultData: poetsDefaultData },
       { id: 'todo', label: 'Te doen lijst', title: 'Te doen lijst', hint: 'Gebruik de knop bovenaan om te wisselen tussen tekst en stift.', defaultData: todoDefaultData }
     ];
     let appState;
@@ -1845,6 +1950,21 @@ const koudDefaultData = {
           </details>
         </div>
       `,
+      poets: `
+        <div class="per-list-instructions">
+          <details>
+            <summary class="per-list-summary">Instructies</summary>
+            <div class="per-list-body">
+              <h3>Poetslijst</h3>
+              <ul>
+                <li>Vul per taak in wanneer dit voor het laatst gepoetst is.</li>
+                <li>Gebruik het datumvak voor <strong>laatst gepoetst op</strong>.</li>
+                <li>Gebruik het notitievak voor bijzonderheden, bijvoorbeeld iets dat kapot is, nagekeken moet worden of extra aandacht vraagt.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      `,
       todo: `
         <div class="per-list-instructions">
           <details>
@@ -1932,6 +2052,8 @@ const koudDefaultData = {
             productionCells: saved?.productionCells || {},
             bestelSections: config.defaultData.bestelSections ? (hasOldBestelPlaceholder ? clone(config.defaultData.bestelSections) : (saved?.bestelSections || clone(config.defaultData.bestelSections))) : undefined,
             bestelCells: saved?.bestelCells || {},
+            poetsSections: config.defaultData.poetsSections ? (saved?.poetsSections || clone(config.defaultData.poetsSections)) : undefined,
+            poetsEntries: saved?.poetsEntries || {},
             todoTitle: config.defaultData.todoTitle ? (saved?.todoTitle || config.defaultData.todoTitle) : undefined,
             todoText: config.defaultData.todoText ? (saved?.todoText || config.defaultData.todoText) : undefined,
             todoInk: config.defaultData.todoTitle ? (saved?.todoInk || '') : undefined,
@@ -1998,6 +2120,9 @@ function createDefaultSharedState() {
     if (config.defaultData.bestelSections) {
       listState.bestelSections = clone(config.defaultData.bestelSections);
     }
+    if (config.defaultData.poetsSections) {
+      listState.poetsSections = clone(config.defaultData.poetsSections);
+    }
     if (config.defaultData.todoTitle) {
       listState.todoTitle = config.defaultData.todoTitle;
     }
@@ -2033,6 +2158,9 @@ function extractSharedStateFromAppState() {
     }
     if (state.bestelSections) {
       listState.bestelSections = clone(state.bestelSections);
+    }
+    if (state.poetsSections) {
+      listState.poetsSections = clone(state.poetsSections);
     }
     if (typeof state.todoTitle === 'string') {
       listState.todoTitle = state.todoTitle;
@@ -2073,6 +2201,7 @@ function extractSharedStateFromAppState() {
         if (incoming.columns) target.columns = clone(incoming.columns);
         if (incoming.productionSections) target.productionSections = clone(incoming.productionSections);
         if (incoming.bestelSections) target.bestelSections = clone(incoming.bestelSections);
+        if (incoming.poetsSections) target.poetsSections = clone(incoming.poetsSections);
         if (typeof incoming.todoTitle === 'string') target.todoTitle = incoming.todoTitle || config.defaultData.todoTitle || config.title;
         if (typeof incoming.titleText === 'string') target.titleText = incoming.titleText || config.title;
         if (typeof incoming.hintText === 'string') target.hintText = incoming.hintText || config.hint;
@@ -2493,6 +2622,8 @@ function updateMetaBar() {
         btn.textContent = 'Dubbelklik om productielijst te bewerken';
       } else if (activeId === 'bestel') {
         btn.textContent = 'Dubbelklik om bestellijst te bewerken';
+      } else if (activeId === 'poets') {
+        btn.textContent = 'Dubbelklik om poetslijst te bewerken';
       } else if (activeId === 'todo') {
         btn.textContent = 'Dubbelklik om te-doenlijst te bewerken';
       } else {
@@ -2510,7 +2641,7 @@ function updateMetaBar() {
       const activeId = activeListId || listConfigs[0].id;
       const state = getActiveState();
 
-      if (activeId === 'bestel' || activeId === 'todo') {
+      if (activeId === 'bestel' || activeId === 'poets' || activeId === 'todo') {
         btn.style.display = 'none';
         return;
       }
@@ -3030,6 +3161,149 @@ function renderBestellijst() {
 
 
     
+
+function onPoetsTitleEdit(event) {
+  const { section } = event.currentTarget.dataset;
+  getActiveState().poetsSections[Number(section)].title = event.currentTarget.textContent.trim() || ' ';
+  saveAppState();
+}
+
+function onPoetsRowTextEdit(event) {
+  const { section, row } = event.currentTarget.dataset;
+  getActiveState().poetsSections[Number(section)].rows[Number(row)].label = event.currentTarget.textContent.trim() || ' ';
+  saveAppState();
+}
+
+function getPoetsEntry(state, key) {
+  const raw = state.poetsEntries?.[key];
+  if (!raw) return { date: '', note: '' };
+  return {
+    date: String(raw.date || ''),
+    note: String(raw.note || '')
+  };
+}
+
+function setPoetsEntry(state, key, entry) {
+  const normalized = {
+    date: String(entry.date || '').trim(),
+    note: String(entry.note || '').trim()
+  };
+  if (!normalized.date && !normalized.note) {
+    delete state.poetsEntries[key];
+    return;
+  }
+  state.poetsEntries[key] = normalized;
+}
+
+function renderPoetsLijst() {
+  updateNav();
+  updateHeader();
+
+  const grid = document.getElementById('listGrid');
+  grid.innerHTML = '';
+  const state = getActiveState();
+
+  const board = document.createElement('div');
+  board.className = 'poets-board';
+  const instructionBlock = makeInstructionBlock('poets');
+  if (instructionBlock) board.appendChild(instructionBlock);
+
+  state.poetsSections.forEach((section, sectionIndex) => {
+    const wrap = document.createElement('section');
+    wrap.className = 'poets-section';
+
+    const title = document.createElement('div');
+    title.className = 'poets-title';
+    title.textContent = section.title || ' ';
+    title.dataset.section = sectionIndex;
+    title.contentEditable = isEditing ? 'true' : 'false';
+    title.spellcheck = false;
+    title.addEventListener('input', onPoetsTitleEdit);
+    wrap.appendChild(title);
+
+    const table = document.createElement('table');
+    table.className = 'poets-table';
+
+    const thead = document.createElement('thead');
+    const headRow = document.createElement('tr');
+    [
+      { label: 'Taak', className: 'poets-item-head' },
+      { label: 'Laatst gepoetst op' },
+      { label: 'Notitie' }
+    ].forEach((col) => {
+      const th = document.createElement('th');
+      th.textContent = col.label;
+      if (col.className) th.classList.add(col.className);
+      headRow.appendChild(th);
+    });
+    thead.appendChild(headRow);
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    section.rows.forEach((row, rowIndex) => {
+      const tr = document.createElement('tr');
+
+      const tdLabel = document.createElement('td');
+      tdLabel.className = 'poets-item-label';
+      tdLabel.textContent = row.label || '';
+      tdLabel.dataset.section = sectionIndex;
+      tdLabel.dataset.row = rowIndex;
+      tdLabel.contentEditable = isEditing ? 'true' : 'false';
+      tdLabel.spellcheck = false;
+      tdLabel.addEventListener('input', onPoetsRowTextEdit);
+      tr.appendChild(tdLabel);
+
+      const key = `${sectionIndex}-${rowIndex}`;
+      const entry = getPoetsEntry(state, key);
+
+      const tdDate = document.createElement('td');
+      tdDate.className = 'poets-date-cell';
+      const dateInput = document.createElement('input');
+      dateInput.type = 'date';
+      dateInput.className = 'poets-date-input';
+      dateInput.value = entry.date || '';
+      dateInput.addEventListener('input', (event) => {
+        const next = getPoetsEntry(state, key);
+        next.date = event.target.value || '';
+        setPoetsEntry(state, key, next);
+        saveAppState();
+      });
+      tdDate.appendChild(dateInput);
+      tr.appendChild(tdDate);
+
+      const tdNote = document.createElement('td');
+      tdNote.className = 'poets-note-cell';
+      const noteInput = document.createElement('input');
+      noteInput.type = 'text';
+      noteInput.className = 'poets-note-input';
+      noteInput.placeholder = 'Notitie';
+      noteInput.value = entry.note || '';
+      noteInput.addEventListener('input', (event) => {
+        const next = getPoetsEntry(state, key);
+        next.note = event.target.value || '';
+        setPoetsEntry(state, key, next);
+        saveAppState();
+      });
+      tdNote.appendChild(noteInput);
+      tr.appendChild(tdNote);
+
+      tbody.appendChild(tr);
+    });
+
+    table.appendChild(tbody);
+    wrap.appendChild(table);
+    board.appendChild(wrap);
+  });
+
+  grid.appendChild(board);
+
+  const notes = document.getElementById('notes');
+  notes.value = state.notes || '';
+  updateButton();
+  updateTodoButton();
+}
+
+
 function renderTodoLijst() {
       updateNav();
       updateHeader();
@@ -3664,6 +3938,10 @@ function renderTodoLijst() {
       }
       if (activeListId === 'bestel') {
         renderBestellijst();
+        return;
+      }
+      if (activeListId === 'poets') {
+        renderPoetsLijst();
         return;
       }
       if (activeListId === 'todo') {
